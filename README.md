@@ -1,18 +1,17 @@
-\# TP Cloud \& DevOps
+TP Cloud \& DevOps
 
 
 
-\## Informations de l'étudiant
+Informations
 
 
+Nom et prénom : BAHOUCHI Mohammed
 
-\* \*\*Nom et prénom :\*\* BAHOUCHI Mohammed
+CNE :F145061787
 
-\* \*\*CNE :\*\* F145061787
+Filière :IRISTI
 
-\* \*\*Filière :\*\* IRISTI
 
-\* \*\*Établissement :\*\* FST Settat
 
 
 
