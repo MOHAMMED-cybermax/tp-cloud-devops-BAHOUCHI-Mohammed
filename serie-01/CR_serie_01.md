@@ -1,1 +1,216 @@
-\# Série 1 — Virtualisation et Cloud Computing\*\*Nom et prénom :\*\* BAHOUCHI Mohammed\*\*CNE :\*\* F145061787\*\*Filière :\*\* IRISTI\*\*Établissement :\*\* FST Settat\---\## Partie 1 — Travail dirigé (TD)\### Exercice 1 : Caractéristiques du Cloud Computing\*\*a) Self-service à la demande\*\*L’utilisateur peut créer ou utiliser des ressources informatiques selon ses besoins, sans devoir contacter directement le fournisseur à chaque fois.\*\*b) Service mesuré\*\*La consommation des ressources peut être mesurée. Cela permet de calculer le coût selon l’utilisation réelle.\*\*c) Accès réseau étendu\*\*Les services Cloud sont accessibles par le réseau depuis différents appareils, comme un ordinateur ou un smartphone.\*\*d) Élasticité rapide\*\*Les ressources peuvent augmenter ou diminuer rapidement selon la charge. Cela permet de s’adapter aux besoins sans garder inutilement trop de ressources.\*\*e) Mutualisation des ressources\*\*Le fournisseur partage ses ressources physiques entre plusieurs clients, tout en séparant leurs environnements.\### Exercice 2 : Scalabilité, élasticité et disponibilité\*\*a) Scalabilité\*\*La scalabilité est la capacité d’un système à supporter une augmentation de la charge en augmentant ses ressources.\*\*b) Élasticité\*\*L’élasticité permet d’adapter les ressources à la charge du moment. Par exemple, le nombre de serveurs peut augmenter pendant les heures de forte activité et diminuer lorsque la demande baisse.\*\*c) Haute disponibilité\*\*La haute disponibilité consiste à maintenir un service accessible même en cas de panne d’un composant. Elle peut être améliorée grâce à la redondance et à la répartition des services.\*\*d) Différence entre Scale Up et Scale Out\*\*\* \*\*Scale Up (scalabilité verticale) :\*\* augmenter les ressources d’une même machine, par exemple passer de 8 Go à 16 Go de RAM.\* \*\*Scale Out (scalabilité horizontale) :\*\* ajouter plusieurs machines ou serveurs pour répartir la charge.\### Exercice 3 : Modèles de déploiement du Cloud\*\*a) Une startup avec un budget limité : Cloud public\*\*Le Cloud public permet d’utiliser des ressources sans acheter de serveurs physiques. La startup peut payer selon sa consommation.\*\*b) Une faculté qui conserve certaines données en interne : Cloud hybride\*\*Le Cloud hybride permet de garder certaines données dans une infrastructure privée et d’utiliser le Cloud public pour d’autres services.\*\*c) Une banque ayant des exigences de sécurité importantes : Cloud privé\*\*Le Cloud privé permet de mieux contrôler l’infrastructure, les accès et la gestion des données sensibles.\*\*d) Plusieurs universités partageant une infrastructure : Cloud communautaire\*\*Le Cloud communautaire peut être partagé par plusieurs organisations ayant des besoins et des objectifs communs.\### Exercice 4 : Étude de cas ScolaNet\#### 1. Problèmes de l’infrastructure existanteScolaNet utilise un seul serveur physique pour héberger l’application et la base de données PostgreSQL. Cette architecture présente plusieurs limites :\* Le serveur constitue un point unique de défaillance.\* La croissance du trafic en septembre peut saturer les ressources disponibles.\* L’application et la base de données se partagent les ressources de la même machine.\* Une panne matérielle peut interrompre complètement le service.\* L’ajout de ressources nécessite une intervention sur l’infrastructure existante.\#### 2. Solution proposéeJe propose une migration vers le Cloud avec une architecture plus flexible. L’application pourrait être répartie sur deux serveurs applicatifs derrière un répartiteur de charge, tandis que la base PostgreSQL serait hébergée sur un service adapté, avec sauvegardes régulières et mécanismes de haute disponibilité si le budget le permet.Une approche de type \*\*Replatform\*\* peut être envisagée : l’application est déplacée vers le Cloud avec des modifications limitées, sans devoir tout reconstruire.\#### 3. Risques et solutions\* \*\*Perte de données :\*\* effectuer une sauvegarde complète et tester la restauration avant la migration.\* \*\*Interruption du service :\*\* planifier la migration pendant une période de faible activité.\* \*\*Problèmes de compatibilité :\*\* tester l’application dans un environnement de préparation avant la mise en production.\* \*\*Dépassement du budget :\*\* surveiller la consommation et adapter les ressources aux besoins.\#### 4. Étapes de migration1\. \*\*Analyse :\*\* examiner l’application, la base de données, les ressources et les besoins de ScolaNet.2\. \*\*Préparation :\*\* choisir les services Cloud et préparer l’environnement cible.3\. \*\*Migration :\*\* transférer l’application et les données après avoir effectué les sauvegardes nécessaires.4\. \*\*Validation et optimisation :\*\* tester les fonctionnalités, les performances, la sécurité et les coûts.\---\## Partie 2 — Travaux pratiques (TP)\### TP 1 : Inventaire des ressources de la machine localeL’objectif est d’identifier les caractéristiques de la machine utilisée pour les travaux pratiques.Les informations à relever sont le processeur, la mémoire vive, le système d’exploitation, l’espace disque et la configuration réseau.| Élément                | Valeur relevée| ---------------------- | ----------------------------------------------------------------------------| Processeur             | Intel(R) Core(TM) i5-7300U CPU @ 2.60GHz (2.70 GHz)| Nombre de cœurs        |     2| Mémoire RAM            |     16 GB| Système d’exploitation | Windows 11| Espace disque          |    477 GB| Configuration réseau   | 192.168.11.125\### TP 2 : Simulation de l’élasticité du Cloud avec Python\#### 1. ObjectifLe but est de comparer une infrastructure statique à une infrastructure élastique en fonction de la charge reçue pendant 24 heures.Les paramètres utilisés sont :\* Capacité d’un serveur : 100 requêtes/s.\* Prix d’un serveur : 0,50 € par heure.\* Durée de simulation : 24 heures.\* Marge de sécurité étudiée : 20 %.\#### 2. Méthode de calculPour l’infrastructure statique, le nombre de serveurs est calculé à partir de la charge maximale :$$N\_{\\text{statique}}=\\left\\lceil\\frac{\\text{charge maximale}}{\\text{capacité}}\\right\\rceil$$Le nombre de serveur-heures est ensuite égal au nombre de serveurs multiplié par 24.Pour l’infrastructure élastique, le nombre de serveurs est recalculé pour chaque heure selon la charge :$$N\_h=\\left\\lceil\\frac{\\text{charge}\_h}{\\text{capacité}}\\right\\rceil$$Le total des serveur-heures correspond à la somme des serveurs nécessaires pendant les 24 heures.Le coût est calculé en multipliant le nombre de serveur-heures par le prix d’un serveur par heure.\#### 3. Résultats sans marge de sécurité| Indicateur                   | Infrastructure statique | Infrastructure élastique || ---------------------------- | ----------------------: | -----------------------: || Nombre de serveurs statiques |                       7 | Variable selon la charge || Serveur-heures               |                     168 |                       90 || Coût total                   |                    84 € |                     45 € |L’économie réalisée est :$$\\text{Économie}=\\frac{84-45}{84}\\times100\\approx46{,}43\\%$$La simulation montre que l’infrastructure élastique réduit le coût en adaptant le nombre de serveurs à la demande.\#### 4. Résultats avec une marge de sécurité de 20 %Une marge de sécurité de 20 % est appliquée à la charge avant de calculer le nombre de serveurs nécessaires.| Indicateur                   | Infrastructure statique | Infrastructure élastique || ---------------------------- | ----------------------: | -----------------------: || Nombre de serveurs statiques |                       9 | Variable selon la charge || Serveur-heures               |                     216 |                      108 || Coût total                   |                   108 € |                     54 € |L’économie réalisée est :$$\\text{Économie}=\\frac{108-54}{108}\\times100=50\\%$$Avec cette marge, le coût de l’infrastructure élastique reste inférieur à celui de l’infrastructure statique.\#### 5. InterprétationL’infrastructure statique conserve le même nombre de serveurs pendant toute la journée, même lorsque la charge est faible. À l’inverse, l’infrastructure élastique adapte les ressources à la demande.La simulation montre donc l’intérêt de l’élasticité pour réduire les coûts tout en tenant compte de la charge. La marge de sécurité augmente les ressources nécessaires, mais l’infrastructure élastique reste plus économique dans ce scénario.\## Captures d’écran\### 1. Inventaire de la machine!\[Inventaire du PC](captures/inventaire\_pc.png)\### 2. Simulation Python de l’élasticité!\[Résultats de la simulation](captures/simulation\_python.png)
+# Série 1 — Virtualisation et Cloud Computing
+
+**Nom et prénom :** BAHOUCHI Mohammed
+
+**CNE :** F145061787
+
+**Filière :** IRISTI
+
+**Établissement :** FST Settat
+
+---
+
+## Partie 1 — Travail dirigé (TD)
+
+### Exercice 1 : Caractéristiques du Cloud Computing
+
+**a) Self-service à la demande**
+
+L'utilisateur peut créer ou utiliser des ressources informatiques selon ses besoins, sans devoir contacter directement le fournisseur à chaque fois.
+
+**b) Service mesuré**
+
+La consommation des ressources peut être mesurée. Cela permet de calculer le coût selon l'utilisation réelle.
+
+**c) Accès réseau étendu**
+
+Les services Cloud sont accessibles par le réseau depuis différents appareils, comme un ordinateur ou un smartphone.
+
+**d) Élasticité rapide**
+
+Les ressources peuvent augmenter ou diminuer rapidement selon la charge. Cela permet de s'adapter aux besoins sans garder inutilement trop de ressources.
+
+**e) Mutualisation des ressources**
+
+Le fournisseur partage ses ressources physiques entre plusieurs clients, tout en séparant leurs environnements.
+
+### Exercice 2 : Scalabilité, élasticité et disponibilité
+
+**a) Scalabilité**
+
+La scalabilité est la capacité d'un système à supporter une augmentation de la charge en augmentant ses ressources.
+
+**b) Élasticité**
+
+L'élasticité permet d'adapter les ressources à la charge du moment. Par exemple, le nombre de serveurs peut augmenter pendant les heures de forte activité et diminuer lorsque la demande baisse.
+
+**c) Haute disponibilité**
+
+La haute disponibilité consiste à maintenir un service accessible même en cas de panne d'un composant. Elle peut être améliorée grâce à la redondance et à la répartition des services.
+
+**d) Différence entre Scale Up et Scale Out**
+
+- **Scale Up (scalabilité verticale) :** augmenter les ressources d'une même machine, par exemple passer de 8 Go à 16 Go de RAM.
+- **Scale Out (scalabilité horizontale) :** ajouter plusieurs machines ou serveurs pour répartir la charge.
+
+### Exercice 3 : Modèles de déploiement du Cloud
+
+**a) Une startup avec un budget limité : Cloud public**
+
+Le Cloud public permet d'utiliser des ressources sans acheter de serveurs physiques. La startup peut payer selon sa consommation.
+
+**b) Une faculté qui conserve certaines données en interne : Cloud hybride**
+
+Le Cloud hybride permet de garder certaines données dans une infrastructure privée et d'utiliser le Cloud public pour d'autres services.
+
+**c) Une banque ayant des exigences de sécurité importantes : Cloud privé**
+
+Le Cloud privé permet de mieux contrôler l'infrastructure, les accès et la gestion des données sensibles.
+
+**d) Plusieurs universités partageant une infrastructure : Cloud communautaire**
+
+Le Cloud communautaire peut être partagé par plusieurs organisations ayant des besoins et des objectifs communs.
+
+### Exercice 4 : Étude de cas ScolaNet
+
+#### 1. Problèmes de l'infrastructure existante
+
+ScolaNet utilise un seul serveur physique pour héberger l'application et la base de données PostgreSQL. Cette architecture présente plusieurs limites :
+
+- Le serveur constitue un point unique de défaillance.
+- La croissance du trafic en septembre peut saturer les ressources disponibles.
+- L'application et la base de données se partagent les ressources de la même machine.
+- Une panne matérielle peut interrompre complètement le service.
+- L'ajout de ressources nécessite une intervention sur l'infrastructure existante.
+
+#### 2. Solution proposée
+
+Je propose une migration vers le Cloud avec une architecture plus flexible. L'application pourrait être répartie sur deux serveurs applicatifs derrière un répartiteur de charge, tandis que la base PostgreSQL serait hébergée sur un service adapté, avec sauvegardes régulières et mécanismes de haute disponibilité si le budget le permet.
+
+Une approche de type **Replatform** peut être envisagée : l'application est déplacée vers le Cloud avec des modifications limitées, sans devoir tout reconstruire.
+
+#### 3. Risques et solutions
+
+- **Perte de données :** effectuer une sauvegarde complète et tester la restauration avant la migration.
+- **Interruption du service :** planifier la migration pendant une période de faible activité.
+- **Problèmes de compatibilité :** tester l'application dans un environnement de préparation avant la mise en production.
+- **Dépassement du budget :** surveiller la consommation et adapter les ressources aux besoins.
+
+#### 4. Étapes de migration
+
+1. **Analyse :** examiner l'application, la base de données, les ressources et les besoins de ScolaNet.
+2. **Préparation :** choisir les services Cloud et préparer l'environnement cible.
+3. **Migration :** transférer l'application et les données après avoir effectué les sauvegardes nécessaires.
+4. **Validation et optimisation :** tester les fonctionnalités, les performances, la sécurité et les coûts.
+
+---
+
+## Partie 2 — Travaux pratiques (TP)
+
+### TP 1 : Inventaire des ressources de la machine locale
+
+L'objectif est d'identifier les caractéristiques de la machine utilisée pour les travaux pratiques.
+
+Les informations à relever sont le processeur, la mémoire vive, le système d'exploitation, l'espace disque et la configuration réseau.
+
+| Élément | Valeur relevée |
+| ---------------------- | ------------------------------------------ |
+| Processeur | Intel(R) Core(TM) i5-7300U CPU @ 2.60GHz |
+| Nombre de cœurs | 2 |
+| Mémoire RAM | 16 GB |
+| Système d'exploitation | Windows 11 |
+| Espace disque | 477 GB |
+| Configuration réseau | 192.168.11.125 |
+
+### TP 2 : Simulation de l'élasticité du Cloud avec Python
+
+#### 1. Objectif
+
+Le but est de comparer une infrastructure statique à une infrastructure élastique en fonction de la charge reçue pendant 24 heures.
+
+Les paramètres utilisés sont :
+
+- Capacité d'un serveur : 100 requêtes/s.
+- Prix d'un serveur : 0,50 € par heure.
+- Durée de simulation : 24 heures.
+- Marge de sécurité étudiée : 20 %.
+
+#### 2. Méthode de calcul
+
+Pour l'infrastructure statique, le nombre de serveurs est calculé à partir de la charge maximale :
+
+$$
+N_{\text{statique}}=\left\lceil
+\frac{\text{charge maximale}}{\text{capacité}}
+\right\rceil
+$$
+
+Le nombre de serveur-heures est ensuite égal au nombre de serveurs multiplié par 24.
+
+Pour l'infrastructure élastique, le nombre de serveurs est recalculé pour chaque heure selon la charge :
+
+$$
+N_h=\left\lceil
+\frac{\text{charge}_h}{\text{capacité}}
+\right\rceil
+$$
+
+Le total des serveur-heures correspond à la somme des serveurs nécessaires pendant les 24 heures.
+
+Le coût est calculé en multipliant le nombre de serveur-heures par le prix d'un serveur par heure.
+
+#### 3. Résultats sans marge de sécurité
+
+| Indicateur | Infrastructure statique | Infrastructure élastique |
+| ---------------------------- | ----------------------: | -----------------------: |
+| Nombre de serveurs statiques | 7 | Variable selon la charge |
+| Serveur-heures | 168 | 90 |
+| Coût total | 84 € | 45 € |
+
+L'économie réalisée est :
+
+$$
+\text{Économie}=
+\frac{84-45}{84}\times100
+\approx 46{,}43\%
+$$
+
+La simulation montre que l'infrastructure élastique réduit le coût en adaptant le nombre de serveurs à la demande.
+
+#### 4. Résultats avec une marge de sécurité de 20 %
+
+Une marge de sécurité de 20 % est appliquée à la charge avant de calculer le nombre de serveurs nécessaires.
+
+| Indicateur | Infrastructure statique | Infrastructure élastique |
+| ---------------------------- | ----------------------: | -----------------------: |
+| Nombre de serveurs statiques | 9 | Variable selon la charge |
+| Serveur-heures | 216 | 108 |
+| Coût total | 108 € | 54 € |
+
+L'économie réalisée est :
+
+$$
+\text{Économie}=
+\frac{108-54}{108}\times100
+= 50\%
+$$
+
+Avec cette marge, le coût de l'infrastructure élastique reste inférieur à celui de l'infrastructure statique.
+
+#### 5. Interprétation
+
+L'infrastructure statique conserve le même nombre de serveurs pendant toute la journée, même lorsque la charge est faible. À l'inverse, l'infrastructure élastique adapte les ressources à la demande.
+
+La simulation montre donc l'intérêt de l'élasticité pour réduire les coûts tout en tenant compte de la charge. La marge de sécurité augmente les ressources nécessaires, mais l'infrastructure élastique reste plus économique dans ce scénario.
+
+---
+
+## Captures d'écran
+
+### 1. Inventaire de la machine
+
+![Inventaire du PC](captures/inventaire_pc.png)
+
+### 2. Simulation Python de l'élasticité
+
+![Résultats de la simulation](captures/simulation_python.png)
